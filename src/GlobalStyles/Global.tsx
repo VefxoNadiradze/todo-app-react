@@ -11,7 +11,6 @@ const GlobalStyles = createGlobalStyle`
     body{
         min-height: 100vh;
         font-family: "Josefin Sans", sans-serif;
-        text-decoration: none;
     }
 
 `;
