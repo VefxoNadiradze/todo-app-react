@@ -145,6 +145,18 @@ const TodosContainer = styled.div`
   background: rgb(255, 255, 255);
   margin: -55px auto 50px auto;
 
+  @media screen and (max-width: 569px) {
+    width: 470px;
+  }
+
+  @media screen and (max-width: 481px) {
+    width: 365px;
+  }
+
+  @media screen and (max-width: 388px) {
+    width: 300px;
+  }
+
   &.darkTodoContainer {
     box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
     background: rgb(37, 39, 61);
@@ -156,6 +168,10 @@ const TodosContainer = styled.div`
       &.completedTodo {
         color: rgb(77, 80, 103);
       }
+    }
+
+    .editTodoButton {
+      color: white;
     }
   }
 
@@ -171,11 +187,27 @@ const TodosContainer = styled.div`
     line-height: 18px;
     letter-spacing: -0.25px;
 
+    @media screen and (max-width: 569px) {
+      padding: 10px;
+      font-size: 15px;
+      flex-direction: column;
+      row-gap: 12px;
+    }
+
+    @media screen and (max-width: 481px) {
+      padding: 9px;
+      font-size: 13px;
+    }
+
     .deleteEditTodo {
       display: flex;
       align-items: center;
       column-gap: 10px;
       margin-left: auto;
+
+      @media screen and (max-width: 569px) {
+        margin-right: auto;
+      }
 
       button {
         background-color: transparent;

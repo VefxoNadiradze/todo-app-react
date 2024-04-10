@@ -40,6 +40,7 @@ export default function Edit({
           <input
             type="text"
             placeholder={editInputPlaceholder}
+            maxLength={40}
             value={editTitle}
             onChange={(e) => {
               setEditTitpe(e.target.value);
@@ -54,12 +55,12 @@ export default function Edit({
 }
 
 const EditContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  background-color: #6e6e6e7f;
+  height: 100%;
+  background-color: #0a040d;
   display: flex;
   align-items: center;
   justify-content: center;

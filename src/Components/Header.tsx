@@ -51,6 +51,7 @@ export default function Header({
           placeholder="Create a new todo…"
           value={title}
           onChange={(e) => setTodoTitle(e.target.value)}
+          maxLength={40}
         />
       </form>
     </HeaderComponent>
@@ -71,6 +72,18 @@ const HeaderComponent = styled.header<{ themes: boolean }>`
     justify-content: space-between;
     margin-top: 81px;
     width: 541px;
+
+    @media screen and (max-width: 569px) {
+      width: 470px;
+    }
+
+    @media screen and (max-width: 481px) {
+      width: 365px;
+    }
+
+    @media screen and (max-width: 388px) {
+      width: 300px;
+    }
 
     button {
       background-color: transparent;
@@ -103,6 +116,18 @@ const HeaderComponent = styled.header<{ themes: boolean }>`
     font-weight: 400;
     line-height: 18px;
     letter-spacing: -0.25px;
+    @media screen and (max-width: 569px) {
+      max-width: 470px;
+      width: 470px;
+    }
+
+    @media screen and (max-width: 481px) {
+      width: 365px;
+    }
+
+    @media screen and (max-width: 388px) {
+      width: 300px;
+    }
 
     &.darkInput {
       box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
