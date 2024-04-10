@@ -151,6 +151,11 @@ const TodosContainer = styled.div`
 
   @media screen and (max-width: 481px) {
     width: 365px;
+    .filterItems {
+      flex-direction: column;
+      align-items: center;
+      row-gap: 38px;
+    }
   }
 
   @media screen and (max-width: 388px) {
