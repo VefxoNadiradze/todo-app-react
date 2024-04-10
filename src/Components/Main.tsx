@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import checkIcon from "/images/icon-check.svg";
+import crossIcon from "/images/icon-cross.svg";
+import Edit from "./Edit";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 interface Maininterface {
   datasArr: GlobalTypes[];
@@ -11,6 +15,9 @@ interface Maininterface {
 export default function Main({ datasArr, setDatasArr, theme }: Maininterface) {
   const [filterItems, setFilterItems] = useState<string>("");
   const [filterActive, setFilterActive] = useState<number>(0);
+  const [activeEdit, setActiveEdit] = useState<boolean>(false);
+  const [editInputPlaceholder, setEditInputPlaceholder] = useState<string>("");
+  const [editId, setEditId] = useState<number | null>(null);
   let ActiveCount = datasArr.filter((activeLenght) => {
     return activeLenght.active;
   }).length;
@@ -20,6 +27,13 @@ export default function Main({ datasArr, setDatasArr, theme }: Maininterface) {
     let todoIndex = datasArr.findIndex((item) => item.id === id);
     datasArr[todoIndex].completed = !datasArr[todoIndex].completed;
     datasArr[todoIndex].active = !datasArr[todoIndex].active;
+
+    setDatasArr([...datasArr]);
+  };
+
+  let handleDeleteTodo = (id: number) => {
+    let dleteIndex = datasArr.findIndex((item) => item.id === id);
+    datasArr.splice(dleteIndex, 1);
 
     setDatasArr([...datasArr]);
   };
@@ -35,59 +49,92 @@ export default function Main({ datasArr, setDatasArr, theme }: Maininterface) {
   });
 
   return (
-    <TodosContainer className={theme ? "" : "darkTodoContainer"}>
-      {filteredDatasArr.map((TodosItems, index) => {
-        return (
-          <div
-            key={index}
-            className={TodosItems.completed ? "todo completedTodo" : "todo"}
-          >
-            <button
-              className={TodosItems.completed ? " activeCompletedButton" : ""}
-              onClick={() => handleComplete(TodosItems.id)}
+    <>
+      <TodosContainer className={theme ? "" : "darkTodoContainer"}>
+        {filteredDatasArr.map((TodosItems, index) => {
+          return (
+            <div
+              key={index}
+              className={TodosItems.completed ? "todo completedTodo" : "todo"}
             >
-              <img src={TodosItems.completed ? checkIcon : ""} alt="" />
-            </button>
-            {TodosItems.title}
-          </div>
-        );
-      })}
-
-      <div className="filterItems">
-        <p className="countActiveTodos">
-          <span>{ActiveCount}</span> items left
-        </p>
-        <div className="filterButtons">
-          {filterButtons.map((filterItem, index) => {
-            return (
               <button
-                className={filterActive === index ? "activedFilterBtn" : ""}
-                key={index}
-                onClick={() => {
-                  setFilterItems(filterItem);
-                  setFilterActive(index);
-                }}
+                className={TodosItems.completed ? " activeCompletedButton" : ""}
+                onClick={() => handleComplete(TodosItems.id)}
               >
-                {filterItem}
+                <img src={TodosItems.completed ? checkIcon : ""} alt="" />
               </button>
-            );
-          })}
+              {TodosItems.title}
+
+              <div className="deleteEditTodo">
+                <button
+                  className="editTodoButton"
+                  onClick={() => {
+                    {
+                      TodosItems.active && setActiveEdit(true);
+                    }
+                    setEditInputPlaceholder(TodosItems.title);
+                    setEditId(TodosItems.id);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                </button>
+                <button
+                  className="deleteTodoButton"
+                  onClick={() => handleDeleteTodo(TodosItems.id)}
+                >
+                  <img src={crossIcon} alt="" />
+                </button>
+              </div>
+            </div>
+          );
+        })}
+
+        <div className="filterItems">
+          <p className="countActiveTodos">
+            <span>{ActiveCount}</span> items left
+          </p>
+          <div className="filterButtons">
+            {filterButtons.map((filterItem, index) => {
+              return (
+                <button
+                  className={filterActive === index ? "activedFilterBtn" : ""}
+                  key={index}
+                  onClick={() => {
+                    setFilterItems(filterItem);
+                    setFilterActive(index);
+                  }}
+                >
+                  {filterItem}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            className="clearCompletedBtn"
+            onClick={() => {
+              let filterCompleted = datasArr.filter((completeds) => {
+                return !completeds.completed;
+              });
+
+              setDatasArr(filterCompleted);
+            }}
+          >
+            Clear Completed
+          </button>
         </div>
+      </TodosContainer>
 
-        <button
-          className="clearCompletedBtn"
-          onClick={() => {
-            let filterCompleted = datasArr.filter((completeds) => {
-              return !completeds.completed;
-            });
-
-            setDatasArr(filterCompleted);
-          }}
-        >
-          Clear Completed
-        </button>
-      </div>
-    </TodosContainer>
+      {activeEdit && (
+        <Edit
+          setActiveEdit={setActiveEdit}
+          editInputPlaceholder={editInputPlaceholder}
+          editId={editId}
+          datasArr={datasArr}
+          setDatasArr={setDatasArr}
+        />
+      )}
+    </>
   );
 }
 
@@ -123,6 +170,18 @@ const TodosContainer = styled.div`
     font-weight: 400;
     line-height: 18px;
     letter-spacing: -0.25px;
+
+    .deleteEditTodo {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+      margin-left: auto;
+
+      button {
+        background-color: transparent;
+        border: none;
+      }
+    }
 
     &.completedTodo {
       text-decoration: line-through;
