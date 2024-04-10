@@ -16,7 +16,7 @@ function App() {
         datasArr={datasArr}
         setDatasArr={setDatasArr}
       />
-      <Main />
+      <Main datasArr={datasArr} setDatasArr={setDatasArr} />
     </>
   );
 }

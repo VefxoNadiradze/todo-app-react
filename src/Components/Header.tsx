@@ -28,8 +28,8 @@ export default function Header({
         ...datasArr,
         { title, active: true, completed: false, id: Math.random() },
       ]);
+      setTodoTitle("");
     }
-    setTodoTitle("");
   };
 
   return (
