@@ -47,7 +47,7 @@ export default function Header({
       <form onSubmit={handleInput}>
         <input
           type="text"
-          className="todoInput"
+          className={theme ? "todoInput" : "todoInput darkInput"}
           placeholder="Create a new todo…"
           value={title}
           onChange={(e) => setTodoTitle(e.target.value)}
@@ -95,15 +95,19 @@ const HeaderComponent = styled.header<{ themes: boolean }>`
     outline: none;
     border: none;
     padding: 23px;
-
     border-radius: 5px;
     box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.5);
     background: rgb(255, 255, 255);
-
     color: rgb(57, 58, 75);
     font-size: 18px;
     font-weight: 400;
     line-height: 18px;
     letter-spacing: -0.25px;
+
+    &.darkInput {
+      box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
+      background: rgb(37, 39, 61);
+      color: rgb(200, 203, 231);
+    }
   }
 `;

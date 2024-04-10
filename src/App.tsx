@@ -9,14 +9,14 @@ function App() {
 
   return (
     <>
-      <GlobalStyles />
+      <GlobalStyles themes={theme} />
       <Header
         theme={theme}
         setTheme={setTheme}
         datasArr={datasArr}
         setDatasArr={setDatasArr}
       />
-      <Main datasArr={datasArr} setDatasArr={setDatasArr} />
+      <Main datasArr={datasArr} setDatasArr={setDatasArr} theme={theme} />
     </>
   );
 }

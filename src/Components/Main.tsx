@@ -5,9 +5,10 @@ import { useState } from "react";
 interface Maininterface {
   datasArr: GlobalTypes[];
   setDatasArr: React.Dispatch<React.SetStateAction<GlobalTypes[]>>;
+  theme: boolean;
 }
 
-export default function Main({ datasArr, setDatasArr }: Maininterface) {
+export default function Main({ datasArr, setDatasArr, theme }: Maininterface) {
   const [filterItems, setFilterItems] = useState<string>("");
   const [filterActive, setFilterActive] = useState<number>(0);
   let ActiveCount = datasArr.filter((activeLenght) => {
@@ -34,7 +35,7 @@ export default function Main({ datasArr, setDatasArr }: Maininterface) {
   });
 
   return (
-    <TodosContainer>
+    <TodosContainer className={theme ? "" : "darkTodoContainer"}>
       {filteredDatasArr.map((TodosItems, index) => {
         return (
           <div
@@ -96,6 +97,20 @@ const TodosContainer = styled.div`
   box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.5);
   background: rgb(255, 255, 255);
   margin: -55px auto 50px auto;
+
+  &.darkTodoContainer {
+    box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
+    background: rgb(37, 39, 61);
+
+    .todo {
+      color: rgb(200, 203, 231);
+      border-bottom: 1px solid rgb(57, 58, 75);
+
+      &.completedTodo {
+        color: rgb(77, 80, 103);
+      }
+    }
+  }
 
   .todo {
     padding: 21px;

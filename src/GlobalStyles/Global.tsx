@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle<{ themes: boolean }>`
     @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
     *{
         margin:0;
@@ -11,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
     body{
         min-height: 100vh;
         font-family: "Josefin Sans", sans-serif;
+        background: ${(props) => (props.themes ? "white" : " rgb(23, 24, 35)")};
     }
 
 `;
